@@ -25,16 +25,16 @@ const Dashboard = () => {
         <ul className={`space-y-4 mt-4 md:block ${isMobileMenuOpen ? "block" : "hidden"}`}>
           {isAdmin && (
             <>
-              <li>
+              <li className=" outline btn-primary text-center rounded-xl text-black bg-gray-400  font-bold text-xl">
                 <NavLink
                   to="/"
-                  className="block px-4 py-2 rounded hover:bg-orange-500"
+                  className="block px-4 py-2  rounded hover:bg-orange-500"
                   activeClassName="bg-orange-500"
                 >
                   Home
                 </NavLink>
               </li>
-              <li>
+              <li className=" outline btn-primary text-center rounded-xl text-black bg-gray-400  font-bold text-xl">
                 <NavLink
                   to="/dashboard/adminHome"
                   className="block px-4 py-2 rounded hover:bg-orange-500"
@@ -43,7 +43,7 @@ const Dashboard = () => {
                   Admin Home
                 </NavLink>
               </li>
-              <li>
+              <li className=" outline btn-primary text-center rounded-xl text-black bg-gray-400  font-bold text-xl">
                 <NavLink
                   to="/dashboard/manage-users"
                   className="block px-4 py-2 rounded hover:bg-orange-500"
@@ -52,7 +52,7 @@ const Dashboard = () => {
                   Manage Users
                 </NavLink>
               </li>
-              <li>
+              <li className=" outline btn-primary text-center rounded-xl text-black bg-gray-400  font-bold text-xl">
                 <NavLink
                   to="/dashboard/manage-categories"
                   className="block px-4 py-2 rounded hover:bg-orange-500"
@@ -61,7 +61,7 @@ const Dashboard = () => {
                   Manage Categories
                 </NavLink>
               </li>
-              <li>
+              <li className=" outline btn-primary text-center rounded-xl text-black bg-gray-400  font-bold text-xl">
                 <NavLink
                   to="/dashboard/payment-management"
                   className="block px-4 py-2 rounded hover:bg-orange-500"
@@ -70,7 +70,7 @@ const Dashboard = () => {
                   Payment Management
                 </NavLink>
               </li>
-              <li>
+              <li className=" outline btn-primary text-center rounded-xl text-black bg-gray-400  font-bold text-xl">
                 <NavLink
                   to="/dashboard/sales-report"
                   className="block px-4 py-2 rounded hover:bg-orange-500"
@@ -79,7 +79,7 @@ const Dashboard = () => {
                   Sales Report
                 </NavLink>
               </li>
-              <li>
+              <li className=" outline btn-primary text-center rounded-xl text-black bg-gray-400  font-bold text-xl">
                 <NavLink
                   to="/dashboard/banner-management"
                   className="block px-4 py-2 rounded hover:bg-orange-500"

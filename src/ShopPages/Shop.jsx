@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { FaEye } from "react-icons/fa";
 
 const ShopPage = () => {
   const [medicines, setMedicines] = useState([]);
@@ -63,37 +64,37 @@ const ShopPage = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">Medicine Shop</h2>
+      <h2 className="text-2xl font-bold btn underline shadow-xl mb-4">Medicine Shop</h2>
       <div className="overflow-x-auto">
         <table className="table w-full bg-white">
           <thead>
             <tr>
-              <th className="py-2 px-4 border-b">ID</th>
-              <th className="py-2 px-4 border-b">Name</th>
-              <th className="py-2 px-4 border-b">Company</th>
-              <th className="py-2 px-4 border-b">Price</th>
-              <th className="py-2 px-4 border-b">Discount Price</th>
-              <th className="py-2 px-4 border-b">Actions</th>
+              <th className="py-2 px-4 border">ID</th>
+              <th className="py-2 px-4 border">Name</th>
+              <th className="py-2 px-4 border">Company</th>
+              <th className="py-2 px-4 border">Price</th>
+              <th className="py-2 px-4 border">Discount Price</th>
+              <th className="py-2 px-4 border">Actions</th>
             </tr>
           </thead>
           <tbody>
             {medicines.map((medicine,index) => (
               <tr key={medicine._id}>
-                <td className="py-2 px-4 border-b">{index+1}</td>
-                <td className="py-2 px-4 border-b">{medicine.name}</td>
-                <td className="py-2 px-4 border-b">{medicine.company}</td>
-                <td className="py-2 px-4 border-b">{medicine.price}</td>
-                <td className="py-2 px-4 border-b">{medicine.discountPrice}</td>
-                <td className="py-2 px-4 border-b">
+                <td className="py-2 px-4 border">{index+1}</td>
+                <td className="py-2 px-4 border">{medicine.name}</td>
+                <td className="py-2 px-4 border">{medicine.company}</td>
+                <td className="py-2 px-4 border">{medicine.price}</td>
+                <td className="py-2 px-4 border">{medicine.discountPrice}</td>
+                <td className="py-2 px-4  border">
                   <button
                     onClick={() => handleView(medicine)}
-                    className="btn btn-primary mr-2"
+                    className="btn  mr-2"
                   >
-                    View
+                    View <FaEye></FaEye>
                   </button>
                   <button
                     onClick={() => handleSelect(medicine)}
-                    className="btn btn-success"
+                    className="btn mt-2 btn-success"
                   >
                     Select
                   </button>

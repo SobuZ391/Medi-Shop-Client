@@ -9,7 +9,7 @@ const Footer = () => {
 				<div className="flex items-center justify-center w-12 h-12 rounded-full dark:bg-violet-600">
 				<img className="w-6 rounded-xl" src="/logo.png" alt="Logo" />
 				</div>
-				<span className="self-center text-2xl font-semibold">Medi Shop</span>
+				<span className="self-center text-2xl font-semibold italic">Medi Shop</span>
 			</a>
 		</div>
 		<div className="grid grid-cols-2 text-sm gap-x-3 gap-y-8 lg:w-2/3 sm:grid-cols-4">
@@ -41,20 +41,7 @@ const Footer = () => {
 					</li>
 				</ul>
 			</div>
-			<div className="space-y-3">
-				<h3 className="uppercase ">Artist</h3>
-				<ul className="space-y-1">
-					<li>
-						<a rel="noopener noreferrer" href="#">Alice Smith - Watercolor Artist</a>
-					</li>
-					<li>
-						<a rel="noopener noreferrer" href="#">David Johnson - Acrylic Painter</a>
-					</li>
-					<li>
-						<a rel="noopener noreferrer" href="#">Emily Brown - Mixed Media Artist</a>
-					</li>
-				</ul>
-			</div>
+		
 			<div className="space-y-3">
 				<div className="uppercase ">Social media</div>
 				<div className="flex justify-start space-x-3">

@@ -47,7 +47,7 @@ const CartPage = () => {
   };
 
   return (
-    <div className="container border-2 rounded-xl mx-auto mt-8 p-4">
+    <div className="container min-h-screen  border-2 rounded-xl mx-auto mt-8 p-4">
       <h2 className="text-2xl font-bold mb-4">Cart</h2>
       {cart.length > 0 ? (
         <>

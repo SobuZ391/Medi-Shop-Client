@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import useAdmin from "../../Hooks/useAdmin";
 import useSeller from "../../Hooks/useSeller";
@@ -6,11 +6,23 @@ import useSeller from "../../Hooks/useSeller";
 const Dashboard = () => {
   const { isAdmin } = useAdmin();
   const { isSeller } = useSeller();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen">
       <div className="w-full md:w-64 bg-orange-400 p-4">
-        <ul className="space-y-4">
+        <button
+          onClick={toggleMobileMenu}
+          className="md:hidden bg-orange-500 text-white p-2 rounded"
+        >
+          {isMobileMenuOpen ? "Close Menu" : "Open Menu"}
+        </button>
+
+        <ul className={`space-y-4 mt-4 md:block ${isMobileMenuOpen ? "block" : "hidden"}`}>
           {isAdmin && (
             <>
               <li>

@@ -8,7 +8,7 @@ const PaymentManagement = () => {
   useEffect(() => {
     const fetchPayments = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/payments');
+        const response = await axios.get('https://y-plum-nine.vercel.app/payments');
         setPayments(response.data);
       } catch (error) {
         console.error('Error fetching payments:', error);
@@ -25,7 +25,7 @@ const PaymentManagement = () => {
 
   const handleAcceptPayment = async (id) => {
     try {
-      await axios.patch(`http://localhost:5000/payments/${id}`, { status: 'paid' });
+      await axios.patch(`https://y-plum-nine.vercel.app/payments/${id}`, { status: 'paid' });
       setPayments((prevPayments) =>
         prevPayments.map((payment) =>
           payment._id === id ? { ...payment, status: 'paid' } : payment

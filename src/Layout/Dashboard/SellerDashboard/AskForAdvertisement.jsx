@@ -15,7 +15,7 @@ const AskForAdvertisement = () => {
 
   const fetchReferredMedicines = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/seller/referred-medicines', {
+      const response = await axios.get('https://y-plum-nine.vercel.app/seller/referred-medicines', {
         params: { sellerEmail: user.email }
       });
       const data = response.data;
@@ -52,7 +52,7 @@ const AskForAdvertisement = () => {
         sellerEmail: user.email,
       };
 
-      await axios.post('http://localhost:5000/seller/advertisements', adData);
+      await axios.post('https://y-plum-nine.vercel.app/seller/advertisements', adData);
 
       setShowModal(false);
       fetchReferredMedicines();

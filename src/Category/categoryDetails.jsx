@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { FaEye } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
+import swal from 'sweetalert';
 
 const CategoryDetails = () => {
   const { categoryName } = useParams(); // Extract category name from URL
@@ -10,7 +11,7 @@ const CategoryDetails = () => {
   const [cart, setCart] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/products?category=${categoryName}`)
+    axios.get(`https://y-plum-nine.vercel.app/products?category=${categoryName}`)
       .then((res) => {
         const filteredMedicines = res.data.filter(medicine => medicine.categoryName === categoryName);
         setMedicines(filteredMedicines);
@@ -39,6 +40,7 @@ const CategoryDetails = () => {
     } else {
       const updatedCart = [...cart, { ...medicine, quantity: 1 }];
       updateCart(updatedCart);
+      swal("Added to Cart!", `${medicine.name} has been added to your cart.`, "success");
     }
   };
 
@@ -64,18 +66,18 @@ const CategoryDetails = () => {
 
   return (
     <div className="container mx-auto min-h-screen p-4">
-      <h1 className="text-center text-3xl  text-gray-600 font-bold border-b-2 w-72 mx-auto my-4 p-2">
+      <h1 className="text-center text-3xl text-gray-600 font-bold border-b-2 w-72 mx-auto my-4 p-2">
         {categoryName}
       </h1>
       <div className="overflow-x-auto">
         <table className="table w-full">
           <thead>
             <tr>
-              <th className=" text-xl font-bold text-black py-2">ID</th>
-              <th className=" text-xl font-bold text-black py-2">Name</th>
-              <th className=" text-xl font-bold text-black py-2">Description</th>
-              <th className=" text-xl font-bold text-black py-2">Price</th>
-              <th className=" text-xl font-bold text-black py-2">Actions</th>
+              <th className="text-xl font-bold text-black py-2">ID</th>
+              <th className="text-xl font-bold text-black py-2">Name</th>
+              <th className="text-xl font-bold text-black py-2">Description</th>
+              <th className="text-xl font-bold text-black py-2">Price</th>
+              <th className="text-xl font-bold text-black py-2">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -90,7 +92,7 @@ const CategoryDetails = () => {
                     className="btn border-2 outline-1 btn-sm mr-2"
                     onClick={() => handleView(medicine)}
                   >
-                  View <FaEye />
+                    View <FaEye />
                   </button>
                   <button
                     onClick={() => handleSelect(medicine)}

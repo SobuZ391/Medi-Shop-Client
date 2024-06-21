@@ -6,7 +6,7 @@ import 'jspdf-autotable';
 import logo from '../../../public/logo.png'; // Replace with your actual logo path
 
 const fetchAllSales = async () => {
-  const response = await axios.get('http://localhost:5000/payments');
+  const response = await axios.get('https://y-plum-nine.vercel.app/payments');
   return response.data;
 };
 

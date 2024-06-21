@@ -19,7 +19,7 @@ const ManageMedicines = () => {
     useEffect(() => {
         const fetchMedicines = async () => {
             try {
-                const res = await axios.get('http://localhost:5000/products');
+                const res = await axios.get('https://y-plum-nine.vercel.app/products');
                 setMedicines(res.data);
             } catch (error) {
                 console.error("Error fetching medicines:", error);
@@ -70,7 +70,7 @@ const ManageMedicines = () => {
                 };
 
                 // Send the new medicine data to your backend
-                const medicineRes = await axios.post('http://localhost:5000/products', newMedicine);
+                const medicineRes = await axios.post('https://y-plum-nine.vercel.app/products', newMedicine);
                 if (medicineRes.data.id) {
                     reset();
                     Swal.fire({

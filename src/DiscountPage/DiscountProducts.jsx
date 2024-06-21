@@ -8,7 +8,7 @@ const DiscountProducts = () => {
   const [discountProducts, setDiscountProducts] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/products') // Adjust the path to your JSON file
+    fetch('https://y-plum-nine.vercel.app/products') // Adjust the path to your JSON file
       .then(res => res.json())
       .then(data => {
         // Combine all products from different categories into a single array

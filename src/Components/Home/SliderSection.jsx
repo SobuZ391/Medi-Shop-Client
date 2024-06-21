@@ -15,7 +15,7 @@ const SliderSection = () => {
   const fetchAdvertisements = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get('http://localhost:5000/admin/advertisements');
+      const response = await axios.get('https://y-plum-nine.vercel.app/admin/advertisements');
       console.log('Fetched advertisements:', response.data);
       setAdvertisements(response.data.filter(ad => ad.in_slide));
     } catch (error) {

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import swal from 'sweetalert';
 
 const CartPage = () => {
   const [cart, setCart] = useState([]);
@@ -25,10 +26,12 @@ const CartPage = () => {
       (medicine) => medicine._id !== medicineToRemove._id
     );
     updateCart(updatedCart);
+    swal("Removed!", "Item has been removed from the cart.", "warning");
   };
 
   const handleClearCart = () => {
     updateCart([]);
+    swal("Cleared!", "Your cart has been cleared.", "info");
   };
 
   const handleQuantityChange = (medicine, quantity) => {
@@ -39,6 +42,10 @@ const CartPage = () => {
         item._id === medicine._id ? { ...item, quantity } : item
       );
       updateCart(updatedCart);
+
+      if (quantity > medicine.quantity) {
+        swal("Added!", `${medicine.name} quantity increased to ${quantity}.`, "success");
+      }
     }
   };
 
@@ -47,14 +54,14 @@ const CartPage = () => {
   };
 
   return (
-    <div className="container min-h-screen  border-2 rounded-xl mx-auto mt-8 p-4">
+    <div className="container min-h-screen border-2 rounded-xl mx-auto mt-8 p-4">
       <h2 className="text-2xl font-bold mb-4">Cart</h2>
       {cart.length > 0 ? (
         <>
           <div className="overflow-x-auto">
-            <table className=" w-[65rem] mx-auto   bg-white shadow-md rounded">
+            <table className="w-[65rem] mx-auto bg-white shadow-md rounded">
               <thead>
-                <tr  >
+                <tr>
                   <th className="py-2 px-4 border">Name</th>
                   <th className="py-2 px-4 border">Company</th>
                   <th className="py-2 px-4 border">Price per Unit</th>
@@ -63,27 +70,23 @@ const CartPage = () => {
                   <th className="py-2 px-4 border">Actions</th>
                 </tr>
               </thead>
-              <tbody  >
+              <tbody>
                 {cart.map((medicine, index) => {
                   const price = parseFloat(medicine.price) || 0;
                   const quantity = parseInt(medicine.quantity, 10) || 0;
                   const total = price * quantity;
 
-                  console.log(
-                    `Price: ${price}, Quantity: ${quantity}, Total: ${total}`
-                  );
-
                   return (
-                    <tr   key={index}>
-                      <td className="py-2  px-4 border">{medicine.name}</td>
+                    <tr key={index}>
+                      <td className="py-2 px-4 border">{medicine.name}</td>
                       <td className="py-2 px-4 border">{medicine.company}</td>
                       <td className="py-2 px-4 border">${price.toFixed(2)}</td>
                       <td className="py-2 px-4 border">
-                        <button 
+                        <button
                           onClick={() =>
                             handleQuantityChange(medicine, quantity - 1)
                           }
-                          className="px-2 "
+                          className="px-2"
                         >
                           -
                         </button>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { FaEye } from "react-icons/fa";
+import swal from "sweetalert";
 
 const ShopPage = () => {
   const [medicines, setMedicines] = useState([]);
@@ -14,7 +15,7 @@ const ShopPage = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/products")
+      .get("https://y-plum-nine.vercel.app/products")
       .then((response) => {
         setMedicines(response.data);
       })
@@ -39,6 +40,7 @@ const ShopPage = () => {
     } else {
       const updatedCart = [...cart, { ...medicine, quantity: 1 }];
       updateCart(updatedCart);
+      swal("Added to Cart!", `${medicine.name} has been added to your cart.`, "success");
     }
   };
 
@@ -78,9 +80,9 @@ const ShopPage = () => {
             </tr>
           </thead>
           <tbody>
-            {medicines.map((medicine,index) => (
+            {medicines.map((medicine, index) => (
               <tr key={medicine._id}>
-                <td className="py-2 px-4 border">{index+1}</td>
+                <td className="py-2 px-4 border">{index + 1}</td>
                 <td className="py-2 px-4 border">{medicine.name}</td>
                 <td className="py-2 px-4 border">{medicine.company}</td>
                 <td className="py-2 px-4 border">{medicine.price}</td>

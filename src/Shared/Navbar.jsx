@@ -42,6 +42,13 @@ const Navbar = () => {
             <li>
                 <Link to="/shop" className="btn mx-2">{t('shop')}</Link>
             </li>
+            <li>
+                <Link to="/cart">
+                    <button className="btn ">
+                        <FaShoppingCart className="mr-2" />
+                    </button>
+                </Link>
+            </li>
             {user && isAdmin && (
                 <li>
                     <Link to="/dashboard/adminHome" className="btn ">Dashboard</Link>
@@ -57,13 +64,7 @@ const Navbar = () => {
                     <Link to="/dashboard/user-dashboard" className="btn ">{t('dashboard')}</Link>
                 </li>
             )}
-            <li>
-                <Link to="/cart">
-                    <button className="btn ">
-                        <FaShoppingCart className="mr-2" />
-                    </button>
-                </Link>
-            </li>
+           
         </>
     );
 

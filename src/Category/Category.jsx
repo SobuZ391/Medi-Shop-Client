@@ -10,7 +10,7 @@ const Category = () => {
   const [medicineCategories, setMedicineCategories] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/categories')
+    fetch('https://y-plum-nine.vercel.app/categories')
       .then(res => res.json())
       .then(data => {
         const uniqueCategories = Array.from(new Set(data.map(item => item.categoryName)))

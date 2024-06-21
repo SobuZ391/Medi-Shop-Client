@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { axiosSecure } from '../../Hooks/useAxiosSecure';
 
 const BannerManagement = () => {
   const [advertisements, setAdvertisements] = useState([]);
@@ -13,7 +14,7 @@ const BannerManagement = () => {
   const fetchAdvertisements = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get('http://localhost:5000/admin/advertisements');
+      const response = await axiosSecure.get('/admin/advertisements');
       console.log('Fetched advertisements:', response.data);
       setAdvertisements(response.data);
     } catch (error) {

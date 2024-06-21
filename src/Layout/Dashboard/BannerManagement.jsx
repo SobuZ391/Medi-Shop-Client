@@ -36,7 +36,7 @@ const BannerManagement = () => {
       return;
     }
     try {
-      await axios.patch(`http://localhost:5000/admin/advertisements/${id}`, { in_slide: !currentStatus });
+      await axiosSecure.patch(`/admin/advertisements/${id}`, { in_slide: !currentStatus });
       fetchAdvertisements();
     } catch (error) {
       console.error('Error updating slide status:', error);

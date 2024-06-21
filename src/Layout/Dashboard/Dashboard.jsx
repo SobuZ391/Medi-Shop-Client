@@ -2,15 +2,14 @@ import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import useAdmin from "../../Hooks/useAdmin";
 import useSeller from "../../Hooks/useSeller";
-import PaymentHistory from "./SellerDashboard/PaymentHistory";
 
 const Dashboard = () => {
   const { isAdmin } = useAdmin();
   const { isSeller } = useSeller();
 
   return (
-    <div className="flex min-h-screen">
-      <div className="w-64 bg-orange-400 p-4">
+    <div className="flex flex-col md:flex-row min-h-screen">
+      <div className="w-full md:w-64 bg-orange-400 p-4">
         <ul className="space-y-4">
           {isAdmin && (
             <>
@@ -81,14 +80,14 @@ const Dashboard = () => {
           )}
 
           {isSeller && (
-            <ul className="   ">
+            <div>
               <h1 className="text-2xl font-bold border-2 rounded-xl p-2 bg-gray-300">
                 Seller Dashboard
               </h1>
               <li>
                 <NavLink
                   to="/"
-                  className="btn-accent bg-gray-400 border-2 my-2 flex btn "
+                  className="block px-4 py-2 my-2 rounded hover:bg-orange-500"
                   activeClassName="bg-orange-500"
                 >
                   Home
@@ -97,7 +96,7 @@ const Dashboard = () => {
               <li>
                 <NavLink
                   to="/dashboard/user-dashboard"
-                  className="btn-accent bg-gray-400 border-2 my-2 flex btn "
+                  className="block px-4 py-2 my-2 rounded hover:bg-orange-500"
                   activeClassName="bg-orange-500"
                 >
                   Profile
@@ -106,7 +105,7 @@ const Dashboard = () => {
               <li>
                 <NavLink
                   to="/dashboard/manage-medicines"
-                  className="btn-accent bg-gray-400 border-2 my-2 flex btn "
+                  className="block px-4 py-2 my-2 rounded hover:bg-orange-500"
                   activeClassName="bg-orange-500"
                 >
                   Manage Medicine
@@ -115,23 +114,22 @@ const Dashboard = () => {
               <li>
                 <NavLink
                   to="/dashboard/advertisement"
-                  className="btn btn-accent border-2 bg-gray-400 flex rounded"
+                  className="block px-4 py-2 my-2 rounded hover:bg-orange-500"
                   activeClassName="bg-orange-500"
                 >
                   Advertisement
                 </NavLink>
               </li>
-
               <li>
                 <NavLink
                   to="/dashboard/payment-history"
-                  className="btn-accent bg-gray-400 border-2 my-2 flex btn "
+                  className="block px-4 py-2 my-2 rounded hover:bg-orange-500"
                   activeClassName="bg-orange-500"
                 >
                   Payment History
                 </NavLink>
               </li>
-            </ul>
+            </div>
           )}
 
           {!isAdmin && !isSeller && (
@@ -142,14 +140,13 @@ const Dashboard = () => {
                   className="block px-4 py-2 border-2 text-center font-semibold rounded hover:bg-orange-500"
                   activeClassName="bg-orange-500"
                 >
-                   Home
+                  Home
                 </NavLink>
               </li>
-           
               <li>
                 <NavLink
                   to="/update-profile"
-                  className="block px-4 py-2  border-2 text-center font-semibold  rounded hover:bg-orange-500"
+                  className="block px-4 py-2 border-2 text-center font-semibold rounded hover:bg-orange-500"
                   activeClassName="bg-orange-500"
                 >
                   Profile Update

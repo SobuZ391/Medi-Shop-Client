@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { FaEye } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
 
 const CategoryDetails = () => {
@@ -86,10 +87,10 @@ const CategoryDetails = () => {
                 <td className="py-2 px-4">{medicine.price}</td>
                 <td className="py-2 px-4 flex">
                   <button
-                    className="btn btn-primary btn-sm mr-2"
+                    className="btn border-2 outline-1 btn-sm mr-2"
                     onClick={() => handleView(medicine)}
                   >
-                    Eye
+                  View <FaEye />
                   </button>
                   <button
                     onClick={() => handleSelect(medicine)}

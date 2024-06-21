@@ -32,7 +32,7 @@ const Team = () => {
     {
       name: "Dr. Michael Johnson",
       role: "Surgeon",
-      imageUrl: "https://via.placeholder.com/150", // Replace with actual image URL
+      imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9tygeyr5yXjQCMUoAG2lErP4J6-2Px6XQZQ&s", // Replace with actual image URL
       email: "michael.johnson@example.com",
       twitter: "https://twitter.com/michaeljohnson",
       linkedin: "https://www.linkedin.com/in/michaeljohnson",
@@ -41,7 +41,7 @@ const Team = () => {
     {
       name: "Dr. Sarah Lee",
       role: "Pediatrician",
-      imageUrl: "https://via.placeholder.com/150", // Replace with actual image URL
+      imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9eiZAiqeK4RApU6EkrohwdTHrMQtMSo0epA&s", // Replace with actual image URL
       email: "sarah.lee@example.com",
       twitter: "https://twitter.com/sarahlee",
       linkedin: "https://www.linkedin.com/in/sarahlee",
@@ -50,7 +50,7 @@ const Team = () => {
     {
       name: "Dr. David Clark",
       role: "Oncologist",
-      imageUrl: "https://via.placeholder.com/150", // Replace with actual image URL
+      imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmL_jICflAHIp2UeX3sApkWg-cA6FU5xcbgw&s", // Replace with actual image URL
       email: "david.clark@example.com",
       twitter: "https://twitter.com/davidclark",
       linkedin: "https://www.linkedin.com/in/davidclark",

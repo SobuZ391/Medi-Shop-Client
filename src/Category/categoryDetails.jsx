@@ -62,8 +62,8 @@ const CategoryDetails = () => {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-center text-3xl text-gray-600 font-bold border-b-2 w-72 mx-auto my-4 p-2">
+    <div className="container mx-auto min-h-screen p-4">
+      <h1 className="text-center text-3xl  text-gray-600 font-bold border-b-2 w-72 mx-auto my-4 p-2">
         {categoryName}
       </h1>
       <div className="overflow-x-auto">

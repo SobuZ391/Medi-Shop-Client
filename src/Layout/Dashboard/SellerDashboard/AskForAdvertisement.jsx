@@ -92,7 +92,9 @@ const AskForAdvertisement = () => {
               <td className='border'><img src={medicine.image} alt={medicine.mediName} className="w-16 h-16 object-cover" /></td>
               <td className='border'>{medicine.mediName}</td>
               <td className='border'>{medicine.description}</td>
-              <td className='border'>{medicine.in_slider ? 'In Slider' : 'Not in Slider'}</td>
+              <td className='border'>
+        {medicine.in_slider ? 'In Slider' : 'Not in Slider'}
+      </td>
             </tr>
           ))}
         </tbody>

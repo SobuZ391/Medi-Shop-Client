@@ -37,31 +37,31 @@ const Navbar = () => {
     const links = (
         <>
             <li>
-                <Link to="/" className="btn mx-2 ">{t('home')}</Link>
+                <Link to="/" className="btn mx-2 btn-ghost hover:bg-gray-500">{t('home')}</Link>
             </li>
             <li>
-                <Link to="/shop" className="btn mx-2">{t('shop')}</Link>
+                <Link to="/shop" className="btn mx-2 btn-ghost hover:bg-gray-500">{t('shop')}</Link>
             </li>
             <li>
                 <Link to="/cart">
-                    <button className="btn ">
-                        <FaShoppingCart className="mr-2" />
+                    <button className="btn w-[11rem] md:w-full btn-ghost ">
+                    {t('cart')}<FaShoppingCart className="mr-2" />
                     </button>
                 </Link>
             </li>
             {user && isAdmin && (
                 <li>
-                    <Link to="/dashboard/adminHome" className="btn ">Dashboard</Link>
+                    <Link to="/dashboard/adminHome" className="btn  btn-ghost">{t('dashboard')}</Link>
                 </li>
             )}
             {user && !isAdmin && isSeller && (
                 <li>
-                    <Link to="/dashboard/seller-dashboard" className="btn ">Dashboard</Link>
+                    <Link to="/dashboard/seller-dashboard" className="btn  btn-ghost">{t('dashboard')}</Link>
                 </li>
             )}
             {user && !isAdmin && !isSeller && (
                 <li>
-                    <Link to="/dashboard/user-dashboard" className="btn ">{t('dashboard')}</Link>
+                    <Link to="/dashboard/user-dashboard" className="btn btn-ghost ">{t('dashboard')}</Link>
                 </li>
             )}
            
@@ -99,7 +99,7 @@ const Navbar = () => {
                     </Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">
-                    <ul className="menu menu-horizontal items-center px-1">{links}</ul>
+                    <ul className="menu menu-horizontal items-center px-1 ">{links}</ul>
                 </div>
 
                 <div className="navbar-end">

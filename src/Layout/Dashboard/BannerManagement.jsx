@@ -50,6 +50,7 @@ const BannerManagement = () => {
 
   return (
     <div className="container mx-auto p-4">
+    <h1 className='text-3xl font-bold underline border-2 p-2 rounded-xl' >Banner Management</h1>
       {isLoading ? (
         <div className="flex justify-center items-center">
           <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full" role="status">
@@ -57,35 +58,37 @@ const BannerManagement = () => {
           </div>
         </div>
       ) : (
-        <table className="table w-full">
-          <thead>
-            <tr>
-              <th>Medicine Image</th>
-              <th>Medicine Name</th>
-              <th>Description</th>
-              <th>Seller Email</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {advertisements.map((ad) => (
-              <tr key={ad._id}>
-                <td><img src={ad.image} alt={ad.mediName} className="w-16 h-16 object-cover" /></td>
-                <td>{ad.mediName}</td>
-                <td>{ad.description}</td>
-                <td>{ad.sellerEmail}</td>
-                <td>
-                  <button
-                    className={`btn ${ad.in_slide ? 'btn-error' : 'btn-success'}`}
-                    onClick={() => toggleSlideStatus(ad._id, ad.in_slide)}
-                  >
-                    {ad.in_slide ? 'Remove from Slide' : 'Add to Slide'}
-                  </button>
-                </td>
+        <div className="overflow-x-auto p-2">
+          <table className="min-w-full  bg-white">
+            <thead>
+              <tr>
+                <th className="py-2 px-4 border">Medicine Image</th>
+                <th className="py-2 px-4 border">Medicine Name</th>
+                <th className="py-2 px-4 border">Description</th>
+                <th className="py-2 px-4 border">Seller Email</th>
+                <th className="py-2 px-4 border">Action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {advertisements.map((ad) => (
+                <tr key={ad._id}>
+                  <td className="py-2 px-4 border"><img src={ad.image} alt={ad.mediName} className="w-16 h-16 object-cover" /></td>
+                  <td className="py-2 px-4 border">{ad.mediName}</td>
+                  <td className="py-2 px-4 border">{ad.description}</td>
+                  <td className="py-2 px-4 border">{ad.sellerEmail}</td>
+                  <td className="py-2 px-4 border">
+                    <button
+                      className={`btn ${ad.in_slide ? 'btn-error' : 'btn-success'}`}
+                      onClick={() => toggleSlideStatus(ad._id, ad.in_slide)}
+                    >
+                      {ad.in_slide ? 'Remove from Slide' : 'Add to Slide'}
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );

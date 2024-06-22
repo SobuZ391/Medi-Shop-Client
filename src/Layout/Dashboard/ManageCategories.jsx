@@ -148,11 +148,11 @@ const ManageCategories = () => {
     };
 
     return (
-        <div>
-            <h1 className="text-3xl border p-2 rounded-xl font-bold text-center">Manage Categories</h1>
-            <div>
+        <div className="container mx-auto px-4 py-8">
+            <h1 className="text-3xl font-bold text-center mb-8">Manage Categories</h1>
+            <div className="bg-white p-6 rounded-lg shadow-lg">
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className="form-control w-full my-6">
+                    <div className="form-control w-full mb-6">
                         <label className="label">
                             <span className="label-text">Category Name*</span>
                         </label>
@@ -163,7 +163,7 @@ const ManageCategories = () => {
                             required
                             className="input input-bordered w-full" />
                     </div>
-                    <div className="form-control w-full my-6">
+                    <div className="form-control w-full mb-6">
                         <label className="label">
                             <span className="label-text">Category Image (URL or Upload)*</span>
                         </label>
@@ -174,36 +174,40 @@ const ManageCategories = () => {
                             className="input input-bordered w-full mb-2" />
                         <input {...register('categoryImage')} type="file" className="file-input w-full max-w-xs" />
                     </div>
-                    <button className="btn">
+                    <button className="btn btn-primary w-full md:w-auto">
                         {editMode ? "Update Category" : "Add Category"}
                     </button>
                 </form>
             </div>
             <div className="mt-10">
-                <h2 className="text-2xl font-bold border-y-2 text-center rounded-lg">Existing Categories</h2>
-                <table className="min-w-full mt-4">
-                    <thead>
-                        <tr className="bg-gray-200">
-                            <th className="py-2 px-4 border-b-2">Serial No:</th>
-                            <th className="py-2 px-4 border-b-2">Category Name</th>
-                            <th className="py-2 px-4 border-b-2">image</th>
-                            <th className="py-2 px-4 border-b-2">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {categories.map((category, index) => (
-                            <tr key={category._id} className="border-b">
-                                <td className="py-2 px-4 text-center">{index + 1}</td>
-                                <td className="py-2 px-4 border text-center">{category.categoryName}</td>
-                                <td className="py-2 px-4 border text-center "><img className="w-10 border h-10 object-contain mx-auto rounded-xl" src={category.categoryImage } alt='N/A' /></td>
-                                <td className="py-2 px-4 text-center flex justify-center gap-4">
-                                    <button onClick={() => handleEdit(category)} className="btn btn-sm btn-warning"><FaEdit /></button>
-                                    <button onClick={() => handleDelete(category._id)} className="btn btn-sm bg-red-300 btn-danger"><FaTrash /></button>
-                                </td>
+                <h2 className="text-2xl font-bold text-center mb-4">Existing Categories</h2>
+                <div className="overflow-x-auto">
+                    <table className="min-w-full bg-white">
+                        <thead>
+                            <tr className="bg-gray-200">
+                                <th className="py-2 px-4 border-b-2">Serial No</th>
+                                <th className="py-2 px-4 border-b-2">Category Name</th>
+                                <th className="py-2 px-4 border-b-2">Image</th>
+                                <th className="py-2 px-4 border-b-2">Actions</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {categories.map((category, index) => (
+                                <tr key={category._id} className="border-b">
+                                    <td className="py-2 px-4 text-center">{index + 1}</td>
+                                    <td className="py-2 px-4 text-center">{category.categoryName}</td>
+                                    <td className="py-2 px-4 text-center">
+                                        <img className="w-10 h-10 object-contain mx-auto rounded-xl" src={category.categoryImage} alt='N/A' />
+                                    </td>
+                                    <td className="py-2 px-4 text-center flex justify-center gap-4">
+                                        <button onClick={() => handleEdit(category)} className="btn btn-sm btn-warning"><FaEdit /></button>
+                                        <button onClick={() => handleDelete(category._id)} className="btn btn-sm btn-danger"><FaTrash /></button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     );

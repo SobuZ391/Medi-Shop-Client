@@ -70,45 +70,47 @@ const PaymentManagement = () => {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">Payment Management</h2>
-      <table className="min-w-full bg-white border">
-        <thead>
-          <tr>
-            <th className="py-2 border">User Email</th>
-            <th className="py-2 border">Amount</th>
-            <th className="py-2 border">Status</th>
-            <th className="py-2 border">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {payments.length > 0 ? (
-            payments.map((payment) => (
-              <tr key={payment._id}>
-                <td className="py-2 border">{payment.email}</td>
-                <td className="py-2 border">${payment.amount.toFixed(2)}</td>
-                <td className="py-2 border">{payment.status}</td>
-                <td className="py-2 border">
-                  {payment.status === 'pending' && (
-                    <button
-                      onClick={() => handleAcceptPayment(payment._id)}
-                      className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-                    >
-                      Accept Payment
-                    </button>
-                  )}
+    <div className="container mx-auto p-4 border-2 rounded-xl">
+      <h2 className="text-2xl font-bold mb-4 border-y-2 p-2  text-center">Payment Management</h2>
+      <div className="overflow-x-auto">
+        <table className="min-w-full bg-white border">
+          <thead>
+            <tr>
+              <th className="py-2 border">User Email</th>
+              <th className="py-2 border">Amount</th>
+              <th className="py-2 border">Status</th>
+              <th className="py-2 border">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {payments.length > 0 ? (
+              payments.map((payment) => (
+                <tr key={payment._id}>
+                  <td className="py-2 p-4 border-2 font-semibold italic">{payment.email}</td>
+                  <td className="py-2 p-4 border-2 font-semibold italic">${payment.amount.toFixed(2)}</td>
+                  <td className="py-2 p-4 border-2 font-semibold italic">{payment.status}</td>
+                  <td className="py-2 p-4 border-2 font-semibold italic">
+                    {payment.status === 'pending' && (
+                      <button
+                        onClick={() => handleAcceptPayment(payment._id)}
+                        className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                      >
+                        Accept Payment
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="4" className="text-center py-4">
+                  No payments found.
                 </td>
               </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="4" className="text-center py-4">
-                No payments found.
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

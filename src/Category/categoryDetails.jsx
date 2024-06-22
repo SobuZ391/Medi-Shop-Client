@@ -106,18 +106,19 @@ const CategoryDetails = () => {
         {categoryName}
       </h1>
       
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-between gap-2 items-center mb-4">
         <input
           type="text"
           placeholder="Search..."
           value={searchTerm}
           onChange={handleSearch}
-          className="border p-2 rounded"
+          className="border w-[60%] p-2 rounded"
         />
-        <div>
-          <button onClick={() => handleSort('asc')} className="btn mr-2">Sort by Price (Asc)</button>
-          <button onClick={() => handleSort('desc')} className="btn">Sort by Price (Desc)</button>
-        </div>
+       <div className="mb-6"> <h1 className="text-lg font-bold underline" > Sort by Price :</h1>
+        <div className="flex">
+          <button  onClick={() => handleSort('asc')} className="btn    mr-2"> (Asc)</button>
+          <button  onClick={() => handleSort('desc')} className="btn   "> (Desc)</button>
+        </div></div>
       </div>
       
       <div className="overflow-x-auto">

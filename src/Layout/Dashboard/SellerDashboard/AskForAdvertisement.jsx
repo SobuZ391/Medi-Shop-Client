@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import useAuth from '../../../Hooks/useAuth';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet-async';
 
 const AskForAdvertisement = () => {
   const [medicines, setMedicines] = useState([]);
@@ -74,6 +75,10 @@ const AskForAdvertisement = () => {
 
   return (
     <div className="container mx-auto p-4">
+      <Helmet>
+        <title>Medi-Shop | Dashboard | Advertisement</title>
+       
+      </Helmet>
       <button className="btn btn-primary mb-4" onClick={() => setShowModal(true)}>
         Add Advertisement
       </button>

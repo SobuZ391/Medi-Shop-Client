@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../Hooks/useAuth";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import { Helmet } from 'react-helmet-async';
 
 const PaymentHistory = () => {
   const { user } = useAuth();
@@ -39,6 +40,10 @@ const PaymentHistory = () => {
 
   return (
     <div className="container mx-auto">
+      <Helmet>
+        <title>Medi-Shop | Dashboard | Payment History</title>
+       
+      </Helmet>
       <h1 className="text-2xl font-bold my-4">Your Payments</h1>
       <table className="min-w-full bg-white border border-gray-300">
         <thead>

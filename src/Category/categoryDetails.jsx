@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { FaEye } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
 import swal from 'sweetalert';
+import { Helmet } from 'react-helmet-async';
 
 const CategoryDetails = () => {
   const { categoryName } = useParams(); // Extract category name from URL
@@ -66,6 +67,10 @@ const CategoryDetails = () => {
 
   return (
     <div className="container mx-auto min-h-screen p-4">
+      <Helmet>
+        <title>Medi-Shop |  Categories </title>
+       
+      </Helmet>
       <h1 className="text-center text-3xl text-gray-600 font-bold border-b-2 uppercase mx-auto my-4 p-2">
         {categoryName}
       </h1>

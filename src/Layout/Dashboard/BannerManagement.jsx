@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { axiosSecure } from '../../Hooks/useAxiosSecure';
+import { Helmet } from 'react-helmet-async';
 
 const BannerManagement = () => {
   const [advertisements, setAdvertisements] = useState([]);
@@ -50,6 +51,10 @@ const BannerManagement = () => {
 
   return (
     <div className="container mx-auto p-4">
+      <Helmet>
+        <title>Medi-Shop | Dashboard | Banner Management</title>
+       
+      </Helmet>
     <h1 className='text-3xl font-bold underline border-2 p-2 rounded-xl' >Banner Management</h1>
       {isLoading ? (
         <div className="flex justify-center items-center">

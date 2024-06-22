@@ -7,6 +7,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useState, useEffect } from "react";
 import useAuth from "../Hooks/useAuth";
 import Swal from "sweetalert2";
+import { Helmet } from 'react-helmet-async';
 
 const UpdateProfile = () => {
   const { user, updateUserProfile, updateUserEmail, updateUserPassword } = useAuth();
@@ -95,6 +96,10 @@ const UpdateProfile = () => {
   return (
     <>
       <div className="hero flex justify-center items-center min-h-screen bg-base-200" style={{ backgroundImage: `url(https://img.freepik.com/free-photo/abstract-digital-grid-black-background_53876-97647.jpg?size=626&ext=jpg&ga=GA1.1.1224184972.1715385600&semt=ais_user)` }}>
+      <Helmet>
+        <title>Medi-Shop | Profile Update</title>
+       
+      </Helmet>
         <div className="w-full mx-auto lg:w-[40rem]">
           <form onSubmit={handleSubmit(onSubmit)} className="w-[90%] mx-auto shadow-2xl rounded-xl bg-gray-300 glass">
             <div className="text-center lg:text-left">

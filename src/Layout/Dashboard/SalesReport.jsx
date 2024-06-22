@@ -4,6 +4,7 @@ import axios from 'axios';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import logo from '../../../public/logo.png'; // Replace with your actual logo path
+import { Helmet } from 'react-helmet-async';
 
 const fetchAllSales = async () => {
   const response = await axios.get('https://y-plum-nine.vercel.app/payments');
@@ -77,6 +78,10 @@ const SalesReport = () => {
 
   return (
     <div>
+     <Helmet>
+        <title>Medi-Shop | Dashboard | Sales Report</title>
+       
+      </Helmet>
       <h2 className="text-2xl font-semibold mb-4">Sales Report</h2>
       <h1 className='text-2xl font-bold p-4 underline text-green-500'>NB: You have to select the initial and final dates to show the data.</h1>
       <div className="flex mb-4">

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import swal from 'sweetalert';
+import { Helmet } from 'react-helmet-async';
 
 const CartPage = () => {
   const [cart, setCart] = useState([]);
@@ -55,6 +56,10 @@ const CartPage = () => {
 
   return (
     <div className="container min-h-screen border-2 rounded-xl mx-auto mt-8 p-4">
+      <Helmet>
+        <title>Medi-Shop |  Cart</title>
+       
+      </Helmet>
       <h2 className="text-2xl font-bold mb-4">Cart</h2>
       {cart.length > 0 ? (
         <>

@@ -4,6 +4,7 @@ import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import axios from "axios";
 import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth"; // Assuming you have a hook to get user data
+import { Helmet } from 'react-helmet-async';
 
 const CheckoutForm = ({ totalAmount, navigate, cartItems }) => {
   const stripe = useStripe();
@@ -82,6 +83,10 @@ const CheckoutForm = ({ totalAmount, navigate, cartItems }) => {
 
   return (
     <form onSubmit={handleSubmit} className="max-w-lg mx-auto p-4 border rounded shadow-md">
+     <Helmet>
+        <title>Medi-Shop | Payment Checkout</title>
+       
+      </Helmet>
       <h2 className="text-2xl font-bold mb-4">Payment Details</h2>
       <div className="mb-4">
         <CardElement options={{ style: { base: { fontSize: "16px" } } }} />

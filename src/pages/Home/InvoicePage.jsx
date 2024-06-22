@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import logo from "../../../public/logo.png"; // Make sure the path to your logo image is correct
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+import { Helmet } from 'react-helmet-async';
 
 const InvoicePage = () => {
   const location = useLocation();
@@ -45,6 +46,10 @@ const InvoicePage = () => {
 
   return (
     <div className="max-w-lg h-[100%] mx-auto p-4 border rounded shadow-md mt-8">
+     <Helmet>
+        <title>Medi-Shop | Invoice</title>
+       
+      </Helmet>
       <h2 className="text-2xl font-bold mb-4">Invoice</h2>
       <p className="mb-4 btn btn-success">Thank you for your purchase!</p>
       <p className="mb-2 border-2 p-4 rounded-xl">

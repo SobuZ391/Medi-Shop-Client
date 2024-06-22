@@ -3,6 +3,7 @@ import { NavLink, Outlet } from "react-router-dom";
 import useAdmin from "../../Hooks/useAdmin";
 import useSeller from "../../Hooks/useSeller";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { Helmet } from 'react-helmet-async';
 
 const Dashboard = () => {
   const { isAdmin } = useAdmin();
@@ -15,6 +16,10 @@ const Dashboard = () => {
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen">
+      <Helmet>
+        <title>Medi-Shop | Dashboard </title>
+       
+      </Helmet>
       <div className="w-full md:w-64 bg-orange-400 p-4">
       <button
       onClick={toggleMobileMenu}

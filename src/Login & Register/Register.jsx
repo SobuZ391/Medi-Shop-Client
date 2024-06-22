@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useState } from "react";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
+import { Helmet } from 'react-helmet-async';
 
 const SignUp = () => {
   const axiosPublic = useAxiosPublic();
@@ -107,6 +108,10 @@ const SignUp = () => {
 
   return (
     <>
+     <Helmet>
+        <title>Medi-Shop | Register</title>
+       
+      </Helmet>
       <div
         className="hero flex justify-center items-center min-h-screen bg-base-200"
         style={{

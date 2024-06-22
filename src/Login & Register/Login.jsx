@@ -6,6 +6,7 @@ import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import SocialLogin from "./SocialLogin";
 import useAuth from "../Hooks/useAuth";
+import { Helmet } from 'react-helmet-async';
 
 const Login = () => {
   const { signInUser } = useAuth();
@@ -35,6 +36,10 @@ const Login = () => {
 
   return (
     <>
+     <Helmet>
+        <title>Medi-Shop | Login</title>
+       
+      </Helmet>
       <div
         className="flex flex-col w-full min-h-screen shadow-xl pt-20 glass"
         style={{

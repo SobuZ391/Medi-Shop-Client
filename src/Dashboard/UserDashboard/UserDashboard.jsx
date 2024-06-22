@@ -5,6 +5,7 @@ import useAuth from "../../Hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import UserHome from "../../Layout/Dashboard/UserHome";
+import { Helmet } from 'react-helmet-async';
 
 const UserDashboard = () => {
   const { user } = useAuth();
@@ -26,6 +27,10 @@ const UserDashboard = () => {
 
   return (
     <div className="container mx-auto my-10 px-4">
+      <Helmet>
+        <title>Medi-Shop | Dashboard | Profile</title>
+       
+      </Helmet>
       <h1 className="text-3xl font-bold mb-6 text-center md:text-left">User Dashboard</h1>
       <div className="border-2 font-bold w-full md:w-96 p-2 rounded-xl bg-accent mx-auto md:mx-0"><UserHome /></div>
       <div className="bg-white p-6 rounded-lg shadow-lg mt-6 md:mt-10">

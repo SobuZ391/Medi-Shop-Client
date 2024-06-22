@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import useApi from '../../Hooks/useApi';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet-async';
 
 const ManageUsers = () => {
   const { getUsers, promoteToAdmin, promoteToSeller, downgradeToUser } = useApi();
@@ -87,6 +88,10 @@ const ManageUsers = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Medi-Shop | Dashboard | Manage Users</title>
+       
+      </Helmet>
       <h2 className="text-2xl font-semibold mb-4">Manage Users</h2>
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white border">

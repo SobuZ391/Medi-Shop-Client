@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet-async';
 
 const PaymentManagement = () => {
   const [payments, setPayments] = useState([]); // Ensure the initial state is an array
@@ -71,6 +72,10 @@ const PaymentManagement = () => {
 
   return (
     <div className="container mx-auto p-4 border-2 rounded-xl">
+      <Helmet>
+        <title>Medi-Shop | Dashboard | Payment Management</title>
+       
+      </Helmet>
       <h2 className="text-2xl font-bold mb-4 border-y-2 p-2  text-center">Payment Management</h2>
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white border">

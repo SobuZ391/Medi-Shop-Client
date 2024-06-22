@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import { Helmet } from 'react-helmet-async';
 
 const imageHostingKey = "8954c730e8c64d440537819fbd7d93c3";
 const imageHostingAPI = `https://api.imgbb.com/1/upload?key=${imageHostingKey}`;
@@ -149,6 +150,10 @@ const ManageCategories = () => {
 
     return (
         <div className="container mx-auto px-4 py-8">
+          <Helmet>
+        <title>Medi-Shop | Dashboard | Manage Category</title>
+       
+      </Helmet>
             <h1 className="text-3xl font-bold text-center mb-8">Manage Categories</h1>
             <div className="bg-white p-6 rounded-lg shadow-lg">
                 <form onSubmit={handleSubmit(onSubmit)}>

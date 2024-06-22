@@ -4,6 +4,7 @@ import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 
 const Category = () => {
   const navigate = useNavigate();
@@ -26,6 +27,7 @@ const Category = () => {
 
   return (
     <div className='container mx-auto'>
+    
       <h1 className='text-center text-3xl text-gray-600 font-bold border-y-2 w-72 mx-auto my-4 p-2'>Medicine Category</h1>
       <Swiper
         slidesPerView={1}

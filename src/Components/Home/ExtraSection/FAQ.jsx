@@ -17,7 +17,7 @@ const FAQ = () => {
     <div>
       <section className="rounded-xl">
         <div className="container flex flex-col justify-center p-4 mx-auto md:p-8">
-          <p className="p-2 text-sm font-medium tracking-wider text-center uppercase">Frequently Asked Questions</p>
+          <p className="p-2 text-2xl underline font-medium tracking-wider text-center  uppercase">Frequently Asked Questions</p>
 
           <h1 className="p-12 text-4xl font-bold leading-none text-center sm:text-5xl" style={{ paddingTop: '5rem', margin: 'auto 0', fontWeight: 'normal' }}>
             Questions about Medicines{' '}

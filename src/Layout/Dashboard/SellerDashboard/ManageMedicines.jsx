@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { FaUtensils } from "react-icons/fa";
 import Swal from "sweetalert2";
 import axios from 'axios';
+import { Helmet } from 'react-helmet-async';
 
 const image_hosting_key = "8954c730e8c64d440537819fbd7d93c3";
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -104,6 +105,10 @@ const ManageMedicines = () => {
 
     return (
         <div className="container mx-auto px-4">
+          <Helmet>
+        <title>Medi-Shop | Dashboard | Manage Medicine</title>
+       
+      </Helmet>
         <h1 className='text-3xl font-bold text-center border-y-2 p-2  w-72 mx-auto '>Manage Medicines</h1>
            <div className='border-2 rounded-xl '>
            <h1 className='text-2xl font-bold p-2 m-2 border-b-2 w-72 mx-auto' >Medicine Add Section</h1>

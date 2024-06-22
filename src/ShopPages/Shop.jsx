@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { FaEye } from "react-icons/fa";
 import swal from "sweetalert";
+import { Helmet } from 'react-helmet-async';
 
 const ShopPage = () => {
   const [medicines, setMedicines] = useState([]);
@@ -66,6 +67,10 @@ const ShopPage = () => {
 
   return (
     <div className="container mx-auto p-4">
+       <Helmet>
+        <title>Medi-Shop | Shop</title>
+       
+      </Helmet>
       <h2 className="text-2xl font-bold btn underline shadow-xl mb-4">Medicine Shop</h2>
       <div className="overflow-x-auto">
         <table className="table w-full bg-white">

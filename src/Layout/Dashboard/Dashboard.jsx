@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import useAdmin from "../../Hooks/useAdmin";
 import useSeller from "../../Hooks/useSeller";
+import { FaBars, FaTimes } from "react-icons/fa";
 
 const Dashboard = () => {
   const { isAdmin } = useAdmin();
@@ -15,12 +16,12 @@ const Dashboard = () => {
   return (
     <div className="flex flex-col md:flex-row min-h-screen">
       <div className="w-full md:w-64 bg-orange-400 p-4">
-        <button
-          onClick={toggleMobileMenu}
-          className="md:hidden bg-orange-500 text-white p-2 rounded"
-        >
-          {isMobileMenuOpen ? "Close Menu" : "Open Menu"}
-        </button>
+      <button
+      onClick={toggleMobileMenu}
+      className="md:hidden bg-orange-500 text-white p-2 rounded"
+    >
+      {isMobileMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
+    </button>
 
         <ul className={`space-y-4 mt-4 md:block ${isMobileMenuOpen ? "block" : "hidden"}`}>
           {isAdmin && (

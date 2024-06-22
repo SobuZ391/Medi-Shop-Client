@@ -25,14 +25,14 @@ const UserDashboard = () => {
   }, [error]);
 
   return (
-    <div className="container mx-auto my-10">
-      <h1 className="text-3xl font-bold btn mb-6">User Dashboard</h1>
-      <div className="border-2 font-bold w-96 p-2 rounded-xl bg-accent"><UserHome></UserHome></div>
-      <div className="bg-white p-6 rounded-lg shadow-lg">
+    <div className="container mx-auto my-10 px-4">
+      <h1 className="text-3xl font-bold mb-6 text-center md:text-left">User Dashboard</h1>
+      <div className="border-2 font-bold w-full md:w-96 p-2 rounded-xl bg-accent mx-auto md:mx-0"><UserHome /></div>
+      <div className="bg-white p-6 rounded-lg shadow-lg mt-6 md:mt-10">
         <h2 className="text-2xl font-bold mb-4">Profile Details</h2>
-        <p><strong>Full Name:</strong> {user.displayName}</p>
-        <p><strong>Email:</strong> {user.email}</p>
-        {user.photoURL && <img src={user.photoURL} alt="Profile" className="rounded-full w-24 h-24 mt-4" />}
+        <p className="flex flex-col"><strong>Full Name:</strong> <span className="lg:text-3xl text-xl font-medium italic" >{user.displayName}</span></p>
+        <p className="lg:text-xl text-base"><strong>Email:</strong> {user.email}</p>
+        {user.photoURL && <img src={user.photoURL} alt="Profile" className="rounded-full w-24 h-24 mt-4 mx-auto md:mx-0" />}
       </div>
       <div className="bg-white p-6 rounded-lg shadow-lg mt-6">
         <h2 className="text-2xl font-bold mb-4">Payment History</h2>
@@ -43,24 +43,26 @@ const UserDashboard = () => {
         ) : payments.length === 0 ? (
           <p>No payment history found.</p>
         ) : (
-          <table className="min-w-full bg-white">
-            <thead>
-              <tr>
-                <th className="py-2 px-4 border border-gray-300">Transaction ID</th>
-                <th className="py-2 px-4 border border-gray-300">Amount</th>
-                <th className="py-2 px-4 border border-gray-300">Status</th>
-              </tr>
-            </thead>
-            <tbody  >
-              {payments.map((payment) => (
-                <tr key={payment.paymentIntentId}>
-                  <td className="py-2 px-4  pl-40  border border-gray-300">{payment.paymentIntentId}</td>
-                  <td className="py-2 px-4  pl-40 border border-gray-300">{payment.amount}$</td>
-                  <td className="py-2 px-4  pl-40 border border-gray-300">{payment.status}</td>
+          <div className="overflow-x-auto">
+            <table className="min-w-full bg-white">
+              <thead>
+                <tr>
+                  <th className="py-2 px-4 border border-gray-300">Transaction ID</th>
+                  <th className="py-2 px-4 border border-gray-300">Amount</th>
+                  <th className="py-2 px-4 border border-gray-300">Status</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {payments.map((payment) => (
+                  <tr key={payment.paymentIntentId}>
+                    <td className="py-2 px-4 border border-gray-300 break-words">{payment.paymentIntentId}</td>
+                    <td className="py-2 px-4 border border-gray-300">{payment.amount}$</td>
+                    <td className="py-2 px-4 border border-gray-300">{payment.status}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
       <ToastContainer />

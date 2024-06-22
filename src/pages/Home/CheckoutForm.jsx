@@ -9,7 +9,6 @@ const CheckoutForm = ({ totalAmount, navigate, cartItems }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [clientSecret, setClientSecret] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const { user } = useAuth(); // Get the user information
 
   useEffect(() => {
@@ -32,9 +31,8 @@ const CheckoutForm = ({ totalAmount, navigate, cartItems }) => {
       return;
     }
 
-    setIsLoading(true); // Disable the button
-
     const cardElement = elements.getElement(CardElement);
+
     const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
       payment_method: {
         card: cardElement,
@@ -43,7 +41,7 @@ const CheckoutForm = ({ totalAmount, navigate, cartItems }) => {
         },
       },
     });
-    
+
     if (error) {
       console.error("Payment error:", error);
       Swal.fire({
@@ -51,15 +49,13 @@ const CheckoutForm = ({ totalAmount, navigate, cartItems }) => {
         text: error.message,
         icon: "error",
       });
-      setIsLoading(false); // Ensure button is re-enabled on error
-    } else if (paymentIntent.status === "succeeded" ) 
-    {
+    } else if (paymentIntent.status === "succeeded" || paymentIntent.status === "processing") {
       // Payment successful, send data to backend
       try {
         await axios.post("https://y-plum-nine.vercel.app/confirm-payment", {
           paymentIntentId: paymentIntent.id,
           amount: totalAmount,
-          status: paymentIntent.status,
+          status: "paid", // Set the status to paid
           email: user.email,
           mediName: cartItems.map(item => item.name).join(", "), // Combine medicine names
         });
@@ -80,8 +76,6 @@ const CheckoutForm = ({ totalAmount, navigate, cartItems }) => {
           text: "There was an error saving the payment confirmation.",
           icon: "error",
         });
-      } finally {
-        setIsLoading(false); // Re-enable the button
       }
     }
   };
@@ -94,10 +88,10 @@ const CheckoutForm = ({ totalAmount, navigate, cartItems }) => {
       </div>
       <button
         type="submit"
-        disabled={!stripe || !clientSecret || isLoading}
+        disabled={!stripe || !clientSecret}
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
       >
-        {isLoading ? "Processing..." : `Pay $${totalAmount.toFixed(2)}`}
+        Pay ${totalAmount.toFixed(2)}
       </button>
       <div>
         <img

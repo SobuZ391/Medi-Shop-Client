@@ -37,18 +37,27 @@ const PaymentManagement = () => {
         icon: 'success',
       });
     } catch (error) {
-      if (error.response && error.response.status === 401) {
-        Swal.fire({
-          title: 'Unauthorized',
-          text: 'You are not authorized to perform this action.',
-          icon: 'error',
-        });
-      } else if (error.response && error.response.status === 403) {
-        Swal.fire({
-          title: 'Forbidden',
-          text: 'You do not have the necessary permissions.',
-          icon: 'error',
-        });
+      if (error.response) {
+        if (error.response.status === 401) {
+          Swal.fire({
+            title: 'Unauthorized',
+            text: 'You are not authorized to perform this action.',
+            icon: 'error',
+          });
+        } else if (error.response.status === 403) {
+          Swal.fire({
+            title: 'Forbidden',
+            text: 'You do not have the necessary permissions.',
+            icon: 'error',
+          });
+        } else {
+          console.error('Error updating payment status:', error);
+          Swal.fire({
+            title: 'Error',
+            text: 'There was an error updating the payment status.',
+            icon: 'error',
+          });
+        }
       } else {
         console.error('Error updating payment status:', error);
         Swal.fire({
@@ -63,13 +72,13 @@ const PaymentManagement = () => {
   return (
     <div className="container mx-auto p-4">
       <h2 className="text-2xl font-bold mb-4">Payment Management</h2>
-      <table className="min-w-full bg-white">
+      <table className="min-w-full bg-white border">
         <thead>
           <tr>
-            <th className="py-2">User Email</th>
-            <th className="py-2">Amount</th>
-            <th className="py-2">Status</th>
-            <th className="py-2">Action</th>
+            <th className="py-2 border">User Email</th>
+            <th className="py-2 border">Amount</th>
+            <th className="py-2 border">Status</th>
+            <th className="py-2 border">Action</th>
           </tr>
         </thead>
         <tbody>

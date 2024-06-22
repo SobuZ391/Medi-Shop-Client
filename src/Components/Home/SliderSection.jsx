@@ -48,9 +48,9 @@ const SliderSection = () => {
           <Slider {...settings}>
             {advertisements.map((ad) => (
               <div key={ad._id} className="carousel-item rounded-xl p-2">
-                <img src={ad.image} alt={ad.mediName} className="object-cover w-full h-96 rounded-xl" />
+                <img src={ad.image} alt={ad.mediName} className="object-cover w-full h-[40rem] rounded-xl" />
                 <div className="carousel-caption">
-                  <h3 className="text-xl btn w-full  font-bold">Medicine Name: {ad.mediName}</h3>
+                  
                  
                 </div>
               </div>
@@ -59,9 +59,9 @@ const SliderSection = () => {
         ) : (
           advertisements.map((ad) => (
             <div key={ad._id} className="relative carousel-item rounded-xl p-2">
-              <img src={ad.image} alt={ad.mediName} className="object-cover w-full h-96 rounded-xl" />
+              <img src={ad.image} alt={ad.mediName} className="object-cover w-full h-[40rem] rounded-xl" />
               <div className="carousel-caption absolute p-4 text-center glass rounded-r-xl text-white shadow-md font-semibold border-2   ">
-                <h3 className="text-xl font-bold">Medicine Name:  {ad.mediName}</h3>
+                
               
               </div>
             </div>

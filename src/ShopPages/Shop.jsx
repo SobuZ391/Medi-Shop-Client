@@ -8,6 +8,10 @@ const ShopPage = () => {
   const [medicines, setMedicines] = useState([]);
   const [selectedMedicine, setSelectedMedicine] = useState(null);
   const [cart, setCart] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10); // Number of items per page
+  const [sortOrder, setSortOrder] = useState('asc'); // Sorting order
+  const [searchTerm, setSearchTerm] = useState(''); // Search term
 
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -65,13 +69,55 @@ const ShopPage = () => {
     }
   };
 
+  const handleSort = (order) => {
+    setSortOrder(order);
+  };
+
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+  const filteredAndSortedMedicines = medicines
+    .filter(medicine => {
+      return medicine.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+             medicine.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
+             medicine.description.toLowerCase().includes(searchTerm.toLowerCase());
+    })
+    .sort((a, b) => {
+      return sortOrder === 'asc' ? a.price - b.price : b.price - a.price;
+    });
+
+  const currentMedicines = filteredAndSortedMedicines.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredAndSortedMedicines.length / itemsPerPage);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <div className="container mx-auto p-4">
-       <Helmet>
+      <Helmet>
         <title>Medi-Shop | Shop</title>
-       
       </Helmet>
       <h2 className="text-2xl font-bold btn underline shadow-xl mb-4">Medicine Shop</h2>
+      
+      <div className="flex justify-between items-center mb-4">
+        <input
+          type="text"
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={handleSearch}
+          className="border p-2 rounded"
+        />
+        <div>
+          <button onClick={() => handleSort('asc')} className="btn mr-2">Sort by Price (Asc)</button>
+          <button onClick={() => handleSort('desc')} className="btn">Sort by Price (Desc)</button>
+        </div>
+      </div>
+      
       <div className="overflow-x-auto">
         <table className="table w-full bg-white">
           <thead>
@@ -85,17 +131,17 @@ const ShopPage = () => {
             </tr>
           </thead>
           <tbody>
-            {medicines.map((medicine, index) => (
+            {currentMedicines.map((medicine, index) => (
               <tr key={medicine._id}>
                 <td className="py-2 px-4 border">{index + 1}</td>
                 <td className="py-2 px-4 border">{medicine.name}</td>
                 <td className="py-2 px-4 border">{medicine.company}</td>
                 <td className="py-2 px-4 border">{medicine.price}</td>
                 <td className="py-2 px-4 border">{medicine.discountPrice}</td>
-                <td className="py-2 px-4  border">
+                <td className="py-2 px-4 border">
                   <button
                     onClick={() => handleView(medicine)}
-                    className="btn  mr-2"
+                    className="btn mr-2"
                   >
                     View <FaEye></FaEye>
                   </button>
@@ -110,6 +156,18 @@ const ShopPage = () => {
             ))}
           </tbody>
         </table>
+      </div>
+
+      <div className="flex justify-center my-4">
+        {Array.from({ length: totalPages }, (_, i) => (
+          <button
+            key={i}
+            onClick={() => handlePageChange(i + 1)}
+            className={`mx-1 px-3 py-1 border ${currentPage === i + 1 ? 'bg-blue-500 text-white' : ''}`}
+          >
+            {i + 1}
+          </button>
+        ))}
       </div>
 
       {selectedMedicine && (

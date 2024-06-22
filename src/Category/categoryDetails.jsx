@@ -10,6 +10,10 @@ const CategoryDetails = () => {
   const [medicines, setMedicines] = useState([]);
   const [selectedMedicine, setSelectedMedicine] = useState(null);
   const [cart, setCart] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10); // Number of items per page
+  const [sortOrder, setSortOrder] = useState('asc'); // Sorting order
+  const [searchTerm, setSearchTerm] = useState(''); // Search term
 
   useEffect(() => {
     axios.get(`https://y-plum-nine.vercel.app/products?category=${categoryName}`)
@@ -65,15 +69,57 @@ const CategoryDetails = () => {
     }
   };
 
+  const handleSort = (order) => {
+    setSortOrder(order);
+  };
+
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+  const filteredAndSortedMedicines = medicines
+    .filter(medicine => {
+      return medicine.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+             medicine.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+             medicine.companyName?.toLowerCase().includes(searchTerm.toLowerCase());
+    })
+    .sort((a, b) => {
+      return sortOrder === 'asc' ? a.price - b.price : b.price - a.price;
+    });
+
+  const currentMedicines = filteredAndSortedMedicines.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredAndSortedMedicines.length / itemsPerPage);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <div className="container mx-auto min-h-screen p-4">
       <Helmet>
-        <title>Medi-Shop |  Categories </title>
-       
+        <title>Medi-Shop | Categories</title>
       </Helmet>
       <h1 className="text-center text-3xl text-gray-600 font-bold border-b-2 uppercase mx-auto my-4 p-2">
         {categoryName}
       </h1>
+      
+      <div className="flex justify-between items-center mb-4">
+        <input
+          type="text"
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={handleSearch}
+          className="border p-2 rounded"
+        />
+        <div>
+          <button onClick={() => handleSort('asc')} className="btn mr-2">Sort by Price (Asc)</button>
+          <button onClick={() => handleSort('desc')} className="btn">Sort by Price (Desc)</button>
+        </div>
+      </div>
+      
       <div className="overflow-x-auto">
         <table className="table w-full">
           <thead>
@@ -86,7 +132,7 @@ const CategoryDetails = () => {
             </tr>
           </thead>
           <tbody>
-            {medicines.map((medicine, index) => (
+            {currentMedicines.map((medicine, index) => (
               <tr key={index} className="border-t">
                 <td className="py-2 border px-4">{index + 1}</td>
                 <td className="py-2 border px-4">{medicine.name}</td>
@@ -94,7 +140,7 @@ const CategoryDetails = () => {
                 <td className="py-2 border px-4">{medicine.price}</td>
                 <td className="py-2 border px-4 flex flex-col md:flex-row">
                   <button
-                    className="btn border-2 outline-1  p-2 mr-2 mb-2 md:mb-0"
+                    className="btn border-2 outline-1 p-2 mr-2 mb-2 md:mb-0"
                     onClick={() => handleView(medicine)}
                   >
                     View <FaEye />
@@ -110,6 +156,18 @@ const CategoryDetails = () => {
             ))}
           </tbody>
         </table>
+      </div>
+
+      <div className="flex justify-center my-4">
+        {Array.from({ length: totalPages }, (_, i) => (
+          <button
+            key={i}
+            onClick={() => handlePageChange(i + 1)}
+            className={`mx-1 px-3 py-1 border ${currentPage === i + 1 ? 'bg-blue-500 text-white' : ''}`}
+          >
+            {i + 1}
+          </button>
+        ))}
       </div>
 
       {selectedMedicine && (
@@ -132,7 +190,7 @@ const CategoryDetails = () => {
               />
               <p>{selectedMedicine.description}</p>
               <p>
-                <strong>Price:</strong> {selectedMedicine.price}
+                <strong>Price:</strong> $ {selectedMedicine.price}
               </p>
             </div>
             <div className="p-4 border-t flex justify-end">

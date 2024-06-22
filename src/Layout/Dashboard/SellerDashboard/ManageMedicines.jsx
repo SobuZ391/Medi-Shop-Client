@@ -13,6 +13,11 @@ const ManageMedicines = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [medicines, setMedicines] = useState([]);
     const [uploadTime, setUploadTime] = useState(null);
+    const [categories, setCategories] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage] = useState(10);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [sortOrder, setSortOrder] = useState("asc");
 
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
@@ -28,6 +33,19 @@ const ManageMedicines = () => {
         };
 
         fetchMedicines();
+    }, []);
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const res = await axios.get('https://y-plum-nine.vercel.app/categories');
+                setCategories(res.data);
+            } catch (error) {
+                console.error("Error fetching categories:", error);
+            }
+        };
+
+        fetchCategories();
     }, []);
 
     const onSubmit = async (data) => {
@@ -103,25 +121,49 @@ const ManageMedicines = () => {
         }
     };
 
+    const handleSearch = (event) => {
+        setSearchTerm(event.target.value);
+    };
+
+    const handleSort = () => {
+        setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+    };
+
+    // Get current medicines
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const filteredMedicines = medicines.filter(medicine =>
+        medicine.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        medicine.genericName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        medicine.company?.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    const sortedMedicines = filteredMedicines.sort((a, b) => sortOrder === "asc" ? a.price - b.price : b.price - a.price);
+    const currentMedicines = sortedMedicines.slice(indexOfFirstItem, indexOfLastItem);
+
+    // Change page
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+    const totalPages = Math.ceil(filteredMedicines.length / itemsPerPage);
+
     return (
         <div className="container mx-auto px-4">
-          <Helmet>
-        <title>Medi-Shop | Dashboard | Manage Medicine</title>
-       
-      </Helmet>
-        <h1 className='text-3xl font-bold text-center border-y-2 p-2  w-72 mx-auto '>Manage Medicines</h1>
-           <div className='border-2 rounded-xl '>
-           <h1 className='text-2xl font-bold p-2 m-2 border-b-2 w-72 mx-auto' >Medicine Add Section</h1>
-           <button className="btn p-4 mx-auto w-full border-2 btn-accent" onClick={openModal}>
-                Add Medicine <FaUtensils className="ml-4" />
-            </button>
-           </div>
-            
+            <Helmet>
+                <title>Medi-Shop | Dashboard | Manage Medicine</title>
+            </Helmet>
+            <h1 className='text-3xl font-bold text-center border-y-2 p-2 w-72 mx-auto'>Manage Medicines</h1>
+            <div className='border-2 rounded-xl'>
+                <h1 className='text-2xl font-bold p-2 m-2 border-b-2 w-72 mx-auto'>Medicine Add Section</h1>
+                <button className="btn p-4 mx-auto w-full border-2 btn-accent" onClick={openModal}>
+                    Add Medicine <FaUtensils className="ml-4" />
+                </button>
+            </div>
+
             {isModalOpen && (
                 <div className="modal modal-open">
                     <div className="modal-box">
                         <h2 className="text-2xl font-bold mb-4">Add a Medicine</h2>
                         <form onSubmit={handleSubmit(onSubmit)}>
+                            {/* form inputs */}
                             <div className="form-control w-full my-2">
                                 <label className="label">
                                     <span className="label-text">Medicine Name*</span>
@@ -161,15 +203,9 @@ const ManageMedicines = () => {
                                 <select defaultValue="default" {...register('categoryName', { required: true })}
                                     className="select select-bordered w-full">
                                     <option disabled value="default">Select a category</option>
-                                    <option value="tablet">Tablet</option>
-                                    <option value="syrup">Syrup</option>
-                                    <option value="injection">Injection</option>
-                                    <option value="cream">Cream</option>
-                                    <option value="antibiotic capsule">Antibiotic Capsule</option>
-                                    <option value="spray">Spray</option>
-                                    <option value="solution">Solution</option>
-                                    <option value="supplement">Supplement</option>
-                                    <option value="soap">Soap</option>
+                                    {categories.map((category, index) => (
+                                        <option key={index} value={category.categoryName}>{category.categoryName}</option>
+                                    ))}
                                 </select>
                             </div>
                             <div className="form-control w-full my-2">
@@ -196,7 +232,7 @@ const ManageMedicines = () => {
                             </div>
                             <div className="form-control w-full my-2">
                                 <label className="label">
-                                    <span className="label-text">Price per Unit*</span>
+                                    <span className="label-text">Price*</span>
                                 </label>
                                 <input
                                     type="number"
@@ -207,79 +243,110 @@ const ManageMedicines = () => {
                             </div>
                             <div className="form-control w-full my-2">
                                 <label className="label">
-                                    <span className="label-text">Discount Percentage</span>
+                                    <span className="label-text">Discount Price</span>
                                 </label>
                                 <input
                                     type="number"
-                                    placeholder="Discount"
+                                    placeholder="Discount Price"
                                     {...register('discountPrice')}
                                     className="input input-bordered w-full"
                                 />
                             </div>
                             <div className="form-control w-full my-2">
                                 <label className="label">
-                                    <span className="label-text">Image*</span>
+                                    <span className="label-text">Medicine Image*</span>
                                 </label>
-                                <input {...register('image', { required: true })} type="file" className="file-input w-full max-w-xs" />
+                                <input
+                                    type="file"
+                                    {...register('image', { required: true })}
+                                    className="file-input file-input-bordered w-full"
+                                />
                             </div>
                             <div className="form-control w-full my-2">
                                 <label className="label">
                                     <span className="label-text">Category Image*</span>
                                 </label>
-                                <input {...register('categoryImage', { required: true })} type="file" className="file-input w-full max-w-xs" />
+                                <input
+                                    type="file"
+                                    {...register('categoryImage', { required: true })}
+                                    className="file-input file-input-bordered w-full"
+                                />
                             </div>
-                            <div className="flex justify-end mt-4">
-                                <button type="button" className="btn mr-2" onClick={closeModal}>Cancel</button>
-                                <button type="submit" className="btn btn-primary">Add Item</button>
-                            </div>
+                            <input className="btn btn-accent mt-4 w-full" type="submit" value="Add Medicine" />
                         </form>
-                        {uploadTime !== null && (
-                            <div className="mt-4 text-center">
-                                <p>Image uploaded in {uploadTime} seconds</p>
+                        {uploadTime && (
+                            <div className="mt-4">
+                                <p>Upload Time: {uploadTime.toFixed(2)} seconds</p>
                             </div>
                         )}
+                        <div className="modal-action">
+                            <button className="btn btn-secondary" onClick={closeModal}>
+                                Close
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}
 
-            <div className="mt-8">
-                <h2 className="text-2xl font-bold mb-4">Medicines List</h2>
-                <table className="table-auto w-full border-collapse border border-gray-400">
-                    <thead>
-                        <tr className="bg-gray-200">
-                            <th className="border border-gray-400 px-4 py-2">Name</th>
-                            <th className="border border-gray-400 px-4 py-2">Generic Name</th>
-                            <th className="border border-gray-400 px-4 py-2">Description</th>
-                            <th className="border border-gray-400 px-4 py-2">Category</th>
-                            <th className="border border-gray-400 px-4 py-2">Company</th>
-                            <th className="border border-gray-400 px-4 py-2">Mass Unit</th>
-                            <th className="border border-gray-400 px-4 py-2">Price</th>
-                            <th className="border border-gray-400 px-4 py-2">Discount Price</th>
-                            <th className="border border-gray-400 px-4 py-2">Image</th>
-                            <th className="border border-gray-400 px-4 py-2">Category Image</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {medicines.map((medicine, index) => (
-                            <tr key={index} className="text-center">
-                                <td className="border border-gray-400 px-4 py-2">{medicine.name}</td>
-                                <td className="border border-gray-400 px-4 py-2">{medicine.genericName}</td>
-                                <td className="border border-gray-400 px-4 py-2">{medicine.description}</td>
-                                <td className="border border-gray-400 px-4 py-2">{medicine.categoryName}</td>
-                                <td className="border border-gray-400 px-4 py-2">{medicine.company}</td>
-                                <td className="border border-gray-400 px-4 py-2">{medicine.massUnit}</td>
-                                <td className="border border-gray-400 px-4 py-2">{medicine.price}</td>
-                                <td className="border border-gray-400 px-4 py-2">{medicine.discountPrice}</td>
-                                <td className="border border-gray-400 px-4 py-2">
-                                    <img src={medicine.image} alt={medicine.name} className="w-16 h-16 object-cover mx-auto" />
-                                </td>
-                                <td className="border border-gray-400 px-4 py-2">
-                                    <img src={medicine.categoryImage} alt={medicine.categoryName} className="w-16 h-16 object-cover mx-auto" />
-                                </td>
+            <div className='border-2 rounded-xl mt-4'>
+                <h1 className='text-2xl font-bold p-2 m-2 border-b-2 w-72 mx-auto'>Medicine List Section</h1>
+                <div className='flex justify-between p-4'>
+                    <input
+                        type="text"
+                        placeholder="Search..."
+                        className="input input-bordered w-full max-w-xs"
+                        value={searchTerm}
+                        onChange={handleSearch}
+                    />
+                    <button className="btn btn-accent" onClick={handleSort}>
+                        Sort by Price {sortOrder === "asc" ? "▲" : "▼"}
+                    </button>
+                </div>
+                <div className="overflow-x-auto">
+                    <table className="table table-zebra w-full">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Generic Name</th>
+                                <th>Description</th>
+                                <th>Category</th>
+                                <th>Company</th>
+                                <th>Mass Unit</th>
+                                <th>Price</th>
+                                <th>Discount Price</th>
+                                <th>Image</th>
+                                <th>Category Image</th>
                             </tr>
+                        </thead>
+                        <tbody>
+                            {currentMedicines.map((medicine, index) => (
+                                <tr key={index}>
+                                    <td>{medicine.name}</td>
+                                    <td>{medicine.genericName}</td>
+                                    <td>{medicine.description}</td>
+                                    <td>{medicine.categoryName}</td>
+                                    <td>{medicine.company}</td>
+                                    <td>{medicine.massUnit}</td>
+                                    <td>{medicine.price}$</td>
+                                    <td>${medicine.discountPrice}</td>
+                                    <td><img src={medicine.image} alt="Medicine" className="w-20 h-20 object-cover" /></td>
+                                    <td><img src={medicine.categoryImage} alt="Category" className="w-20 h-20 object-cover" /></td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                    <div className='flex justify-center'>
+                        {Array.from({ length: totalPages }, (_, i) => (
+                            <button
+                                key={i}
+                                className={`btn ${currentPage === i + 1 ? 'btn-active' : ''}`}
+                                onClick={() => paginate(i + 1)}
+                            >
+                                {i + 1}
+                            </button>
                         ))}
-                    </tbody>
-                </table>
+                    </div>
+                </div>
             </div>
         </div>
     );
